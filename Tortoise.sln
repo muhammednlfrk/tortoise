@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E2313414-AD0E-4620-B1AC-703266159A6F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortoise.GUI", "src\Tortoise.GUI\Tortoise.GUI.csproj", "{B1255B4D-6D30-4C06-8AF2-B5EC9642EA81}"
 EndProject
 Global
@@ -21,7 +19,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{B1255B4D-6D30-4C06-8AF2-B5EC9642EA81} = {E2313414-AD0E-4620-B1AC-703266159A6F}
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A183821A-3BDA-4F11-A754-9A3ED4198187}
 	EndGlobalSection
 EndGlobal
