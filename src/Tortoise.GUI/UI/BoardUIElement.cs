@@ -1,20 +1,23 @@
 ﻿using Raylib_cs;
 using static Raylib_cs.Raylib;
 using System.Numerics;
+using Tortoise.GUI.Resource;
 
 namespace Tortoise.GUI.UI;
 
 internal sealed class BoardUIElement : IUIElement
 {
     private readonly Vector2 _location;
-    private readonly float _squareSize;
-    private readonly float _pieceSize;
+    private readonly int _squareSize;
+    private readonly int _pieceSize;
+    private readonly ResourceManager _resource;
 
-    public BoardUIElement(Vector2 location, float squareSize, float pieceSize)
+    public BoardUIElement(ResourceManager resource, Vector2 location, int squareSize, int pieceSize)
     {
         _location = location;
         _squareSize = squareSize;
         _pieceSize = pieceSize;
+        _resource = resource;
     }
 
     #region IUIElement
