@@ -25,7 +25,7 @@ public enum PieceColor : uint
     Black = 8
 }
 
-public readonly ref struct Piece
+public readonly struct Piece
 {
     private readonly uint _piece;
 

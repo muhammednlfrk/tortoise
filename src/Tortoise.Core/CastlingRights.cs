@@ -1,18 +1,17 @@
 ﻿namespace Tortoise.Core;
 
-public ref struct CastlingRights
+public struct CastlingRights
 {
     private byte _rights;
 
-    private const byte _whiteMask = 0b0011;
     private const byte _whiteKingSideMask = 0b0001;
     private const byte _whiteQueenSideMask = 0b0010;
-    private const byte _blackMask = 0b1100;
     private const byte _blackKingSideMask = 0b0100;
     private const byte _blackQueenSideMask = 0b1000;
 
     public CastlingRights(byte rights = 0x0) => _rights = (byte)(rights & 0b1111);
 
+    public readonly byte Rights => _rights;
     public bool WhiteKingSide
     {
         readonly get => getFlag(_blackKingSideMask);

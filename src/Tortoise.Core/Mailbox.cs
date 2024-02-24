@@ -1,6 +1,6 @@
 ﻿namespace Tortoise.Core;
 
-public struct Mailbox
+public readonly struct Mailbox
 {
     /**
      * Represents the squares at the board. Each square stores piece info.
@@ -15,6 +15,6 @@ public struct Mailbox
     public readonly uint this[int index]
     {
         get => _squares[index];
-        set => _squares[index] = value & (uint)0b1111;
+        set => _squares[index] = value & 0b1111;
     }
 }

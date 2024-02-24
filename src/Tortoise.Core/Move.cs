@@ -1,6 +1,6 @@
 ﻿namespace Tortoise.Core;
 
-public readonly ref struct Move
+public readonly struct Move
 {
     // 16 bit word for storing move data
     // 0-5 bits are "from" square index
