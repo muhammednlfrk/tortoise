@@ -1,25 +1,23 @@
 ﻿using Raylib_cs;
 using Tortoise.Core;
-using Tortoise.GUI.Helpers;
 
 namespace Tortoise.GUI.Resource;
 
-internal sealed class ResourceManager
+internal sealed class ResourceManager : IDisposable
 {
     private readonly string _resurceDirectoryPath;
-    private readonly int _squareSize;
     private readonly int _pieceSize;
 
-    public ResourceManager(string resourceDirectoryName, int squareSize, int pieceSize)
+    private Dictionary<uint, Texture2D> _pieceTextures;
+
+    public ResourceManager(string resourceDirectoryName, int pieceSize)
     {
         _resurceDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, resourceDirectoryName) + '\\';
         _pieceTextures = new Dictionary<uint, Texture2D>(0);
-        _squareSize = squareSize;
         _pieceSize = pieceSize;
     }
 
-    private IReadOnlyDictionary<uint, Texture2D> _pieceTextures;
-    public IReadOnlyDictionary<uint, Texture2D> PieceTextures => _pieceTextures;
+    #region Public Methods
 
     public void LoadPieceTextures()
     {
@@ -41,14 +39,32 @@ internal sealed class ResourceManager
         _pieceTextures = textures;
     }
 
-    public Texture2D GetPiecETexture(uint pieceCode)
+    public void Dispose()
     {
-        return _pieceTextures[pieceCode & 0b1111];
+        foreach (Texture2D pTexture in _pieceTextures.Values)
+            Raylib.UnloadTexture(pTexture);
+        _pieceTextures.Clear();
     }
+
+    #endregion
+
+    #region Private Methods
 
     private Texture2D loadPieceTexture(string fileName)
     {
-        string filePath = Path.Combine(_resurceDirectoryPath, fileName);
-        return RaylibHelper.LoadImageAsTexture(filePath, _pieceSize, _pieceSize);
+        string path = Path.Combine(_resurceDirectoryPath, fileName);
+        Image image = Raylib.LoadImage(path);
+        Raylib.ImageResize(ref image, _pieceSize, _pieceSize);
+        Texture2D texture = Raylib.LoadTextureFromImage(image);
+        Raylib.UnloadImage(image);
+        return texture;
     }
+
+    #endregion
+
+    #region Properties
+
+    public IReadOnlyDictionary<uint, Texture2D> PieceTextures => _pieceTextures;
+
+    #endregion
 }

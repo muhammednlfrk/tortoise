@@ -3,10 +3,10 @@
 public sealed class Board
 {
     // Mailbox board representation.
-    private readonly Mailbox _mailbox;
+    private Mailbox _mailbox;
 
     // Castling rights information of the current state of the board.
-    private readonly CastlingRights _castlingRights;
+    private CastlingRights _castlingRights;
 
     // Side to move.
     private bool _isWhiteToMove;
@@ -21,17 +21,12 @@ public sealed class Board
     private int _epIndex;
 
     // List of the played moves.
-    private readonly List<Move> _playedMoves;
+    private List<Move> _playedMoves;
 
     public Board(FenInfo fenInfo)
     {
-        _mailbox = fenInfo.Mailbox;
-        _castlingRights = fenInfo.CastlingRights;
-        _isWhiteToMove = fenInfo.IsWhiteToMove;
-        _halfMoveClock = fenInfo.HalfMoveClock;
-        _fullMoveCounter = fenInfo.FullMoveCounter;
-        _epIndex = fenInfo.EnPassantTargetSquareIndex;
         _playedMoves = new List<Move>();
+        SetPosition(fenInfo);
     }
 
     #region Public Methods
@@ -39,6 +34,17 @@ public sealed class Board
     public void MakeMove(Move move)
     {
         throw new NotImplementedException();
+    }
+
+    public void SetPosition(FenInfo fenInfo)
+    {
+        _mailbox = fenInfo.Mailbox;
+        _castlingRights = fenInfo.CastlingRights;
+        _isWhiteToMove = fenInfo.IsWhiteToMove;
+        _halfMoveClock = fenInfo.HalfMoveClock;
+        _fullMoveCounter = fenInfo.FullMoveCounter;
+        _epIndex = fenInfo.EnPassantTargetSquareIndex;
+        _playedMoves.Clear();
     }
 
     #endregion

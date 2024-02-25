@@ -96,7 +96,7 @@ public struct FenInfo
                 }
 
                 uint pieceCode = _fenPieceCodes[placement[j]];
-                int squareIndex = MailboxExtensions.GetSquareIndex(file, rank);
+                int squareIndex = Mailbox.GetSquareIndex(file, rank);
                 _mailbox[squareIndex] = pieceCode;
                 file++;
             }
@@ -147,7 +147,7 @@ public struct FenInfo
         if (epFile != -1)
         {
             int epRankIndex = ((int)char.GetNumericValue(fields[3][1])) - 1;
-            _epTargetIndex = MailboxExtensions.GetSquareIndex(epFile, epRankIndex);
+            _epTargetIndex = Mailbox.GetSquareIndex(epFile, epRankIndex);
         }
 
         // Initialize half move clock and full move counter.
@@ -210,7 +210,7 @@ public struct FenInfo
         if (EnPassantTargetSquareIndex == -1)
             fenBuilder.Append('-');
         else
-            fenBuilder.Append(MailboxExtensions.GetSquareName(EnPassantTargetSquareIndex));
+            fenBuilder.Append(Mailbox.GetSquareName(EnPassantTargetSquareIndex));
         fenBuilder.Append(' ');
 
         fenBuilder.Append(HalfMoveClock);

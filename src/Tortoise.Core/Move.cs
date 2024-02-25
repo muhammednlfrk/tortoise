@@ -11,9 +11,9 @@ public readonly struct Move
     private readonly ushort _to;
     private readonly ushort _flags;
 
-    private const ushort _fromMask = (ushort)0x003f;  // 0b0000000000111111
-    private const ushort _toMask = (ushort)0x0fc0;    // 0b0000111111000000
-    private const ushort _flagsMask = (ushort)0xf000; // 0b1111000000000000
+    private const ushort _fromMask = 0x003f;  // 0b0000000000111111
+    private const ushort _toMask = 0x0fc0;    // 0b0000111111000000
+    private const ushort _flagsMask = 0xf000; // 0b1111000000000000
 
     public Move(ushort move)
     {

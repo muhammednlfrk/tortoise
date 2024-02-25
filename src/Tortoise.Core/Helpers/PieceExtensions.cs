@@ -2,5 +2,5 @@
 
 public static class PieceExtensions
 {
-    public static bool IsEmpty(this Piece piece) => piece == 0u;
+    public static bool IsNone(this Piece piece) => piece == 0u;
 }
