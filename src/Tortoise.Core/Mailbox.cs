@@ -48,7 +48,13 @@ public readonly struct Mailbox
 
     public static int GetRankIndex(int squareIndex) => (squareIndex & 0b111000) >> 3;
     public static int GetFileIndex(int squareIndex) => squareIndex & 0b000111;
-    public static int GetSquareIndex(int file, int rank) => rank * 8 + file;
+    public static int GetSquareIndex(int file, int rank)
+    {
+        if (file < 0 || file > 7 || rank < 0 || rank > 7)
+            return -1;
+
+        return (rank * 8) + file;
+    }
 
     public static string GetSquareName(int squareIndex)
     {

@@ -6,6 +6,7 @@ using Tortoise.GUI.UI.BoardUI;
 // Game screen properties:
 const int SCREEN_WIDTH = 976;
 const int SCREEN_HEIGHT = 576;
+const int TARGET_FPS = 60;
 
 // Board properties:
 const int SQUARE_SIZE = 64;
@@ -13,6 +14,7 @@ const int PIECE_SIZE = 64;
 
 // Initialization.
 Raylib.InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tortoise");
+Raylib.SetTargetFPS(TARGET_FPS);
 
 // Load resources.
 ResourceManager resourceManager = new("res", PIECE_SIZE);
@@ -40,7 +42,10 @@ while (!Raylib.WindowShouldClose())
 
     // Draw UI elements.
     foreach (UIElement element in uiElements)
+    {
+        element.Update();
         element.Draw();
+    }
 
     Raylib.EndDrawing();
 }
