@@ -21,11 +21,11 @@ public sealed class Board
     private int _epIndex;
 
     // List of the played moves.
-    private List<Move> _playedMoves;
+    private Stack<Move> _playedMoves;
 
     public Board(FenInfo fenInfo)
     {
-        _playedMoves = new List<Move>();
+        _playedMoves = new Stack<Move>();
         SetPosition(fenInfo);
     }
 
@@ -33,7 +33,9 @@ public sealed class Board
 
     public void MakeMove(Move move)
     {
-        throw new NotImplementedException();
+        // TODO: Change this.
+        _mailbox[move.To] = _mailbox[move.From];
+        _mailbox[move.From] = Piece.None;
     }
 
     public void SetPosition(FenInfo fenInfo)
@@ -51,14 +53,13 @@ public sealed class Board
 
     #region Properties
 
-    public Mailbox Mailbox => _mailbox;
     public uint this[int index] => _mailbox[index];
     public PieceColor SideToMove => _isWhiteToMove ? PieceColor.White : PieceColor.Black;
     public CastlingRights CastlingRights => _castlingRights;
     public int HalfMoveClock => _halfMoveClock;
     public int FullMoveCounter => _fullMoveCounter;
     public int AllMoveCounter => _playedMoves.Count;
-    public IReadOnlyList<Move> PlayedMoves => _playedMoves;
+    public IReadOnlyCollection<Move> PlayedMoves => _playedMoves;
     public int EnPassantTargetSquareIndex => _epIndex;
 
     #endregion

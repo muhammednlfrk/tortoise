@@ -58,8 +58,8 @@ internal sealed class BoardUI : UIElement
         {
             int from = _selectedPieceIndex;
             int to = getSquareIndexByLocation(_mouseState.Position.X, _mouseState.Position.Y);
-            Raylib.TraceLog(TraceLogLevel.Info, $"F: {from} T: {to}");
-            // TODO: Make move.
+            // TODO: Check generated moves.
+            _chessBoard.MakeMove(new Move(from, to, 0));
 
             _selectedPieceIndex = -1;
             _selectedPiece = (Piece)Piece.None;
@@ -71,7 +71,7 @@ internal sealed class BoardUI : UIElement
             float mouseX = _mouseState.Position.X;
             float mouseY = _mouseState.Position.Y;
             _selectedPieceIndex = getSquareIndexByLocation(mouseX, mouseY);
-            _selectedPiece = (Piece)_chessBoard.Mailbox[_selectedPieceIndex];
+            _selectedPiece = (Piece)_chessBoard[_selectedPieceIndex];
             float boardX = _boardRectangle.X;
             float boardY = _boardRectangle.Y;
             _selectedPieceOffset.X = (mouseX - boardX) % _properties.SquareSize;
@@ -79,7 +79,10 @@ internal sealed class BoardUI : UIElement
         }
     }
 
-    public override void Dispose() { }
+    public override void Dispose()
+    {
+        GC.SuppressFinalize(this);
+    }
 
     #endregion
 
@@ -113,7 +116,7 @@ internal sealed class BoardUI : UIElement
     private void drawPiece(int file, int rank, Rectangle targetSquare, int offset)
     {
         int squareIndex = Mailbox.GetSquareIndex(file, rank);
-        Piece piece = (Piece)_chessBoard.Mailbox[squareIndex];
+        Piece piece = (Piece)_chessBoard[squareIndex];
 
         if (piece.IsNone() || squareIndex == _selectedPieceIndex)
             return;
