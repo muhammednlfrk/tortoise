@@ -29,8 +29,9 @@ public readonly struct Piece
 {
     private readonly uint _piece;
 
-    private const uint _pieceTypeMask = 0b0111;
-    private const uint _pieceColorMask = 0b1000;
+    internal const uint _pieceInfoMask = 0b1111;
+    internal const uint _pieceTypeMask = 0b0111;
+    internal const uint _pieceColorMask = 0b1000;
 
     public Piece(uint piece)
     {
