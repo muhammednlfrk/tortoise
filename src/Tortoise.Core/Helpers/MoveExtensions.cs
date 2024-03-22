@@ -9,6 +9,18 @@ public static class MoveExtensions
     public static bool IsCastling(this Move move) => move.Flags is Move.KingCastleFlag or Move.QueenCastleFlag;
     public static bool IsPromotion(this Move move) => move.Flags >= 8;
     public static bool IsPromotionWithCapture(this Move move) => move.Flags >= 12;
+    public static bool IsCaptureAny(this Move move) => move.IsCapture() || move.IsPromotionWithCapture() || move.IsEnPassant();
+    public static bool HasUnusedFlags(this Move move) => move.Flags is 0b0110 or 0b0111;
 
-    public static bool IsCaptureAny(this Move move) => move.IsCapture() || move.IsPromotionWithCapture();
+    public static uint GetPromotionPieceType(this Move move)
+    {
+        return move.Flags switch
+        {
+            Move.KnightPromotionFlag or Move.KnightPromotionCaptureFlag => Piece.Knight,
+            Move.BishopPromotionFlag or Move.BishopPromotionCaptureFlag => Piece.Bishop,
+            Move.RookPromotionFlag or Move.RookPromotionCaptureFlag => Piece.Rook,
+            Move.QueenCastleFlag or Move.QueenPromotionCaptureFlag => Piece.Queen,
+            _ => Piece.None,
+        };
+    }
 }

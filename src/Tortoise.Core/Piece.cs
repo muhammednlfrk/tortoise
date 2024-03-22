@@ -33,10 +33,13 @@ public readonly struct Piece
     internal const uint _pieceTypeMask = 0b0111;
     internal const uint _pieceColorMask = 0b1000;
 
-    public Piece(uint piece)
-    {
-        _piece = piece;
-    }
+    public Piece(PieceType pieceType, PieceColor pieceColor)
+        : this((uint)pieceType | (uint)pieceColor) { }
+
+    public Piece(uint pieceType, uint pieceColor)
+       : this(pieceType | pieceColor) { }
+
+    public Piece(uint piece) => _piece = piece & 0b1111;
 
     public readonly PieceType PieceType => (PieceType)(_piece & _pieceTypeMask);
     public readonly PieceColor PieceColor => (PieceColor)(_piece & _pieceColorMask);

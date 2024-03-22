@@ -61,6 +61,8 @@ internal sealed class BoardUI : UIElement
             // TODO: Check generated moves.
             _chessBoard.MakeMove(new Move(from, to, 0));
 
+            Raylib.TraceLog(TraceLogLevel.Info, '\n' + _chessBoard.OccupiedBitboard.ToString());
+
             _selectedPieceIndex = -1;
             _selectedPiece = (Piece)Piece.None;
             _selectedPieceOffset.X = 0;

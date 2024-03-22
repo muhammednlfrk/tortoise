@@ -1,4 +1,7 @@
 ﻿
+using System.Numerics;
+using System.Text;
+
 namespace Tortoise.Core;
 
 public struct Bitboard
@@ -94,6 +97,29 @@ public struct Bitboard
     public override readonly int GetHashCode()
     {
         return HashCode.Combine(_bb);
+    }
+
+    #endregion
+
+    #region Overrides
+
+    public override readonly string ToString()
+    {
+        StringBuilder stringBuilder = new(171);
+
+        for (int rank = 7; rank >= 0; rank--)
+        {
+            for (int file = 0; file < 8; file++)
+            {
+                int index = (rank + 1) * 8 - (8 - file);
+                ulong bit = (_bb >> index) & 1ul;
+                stringBuilder.Append(bit);
+                stringBuilder.Append(' ');
+            }
+            stringBuilder.Append('\n');
+        }
+
+        return stringBuilder.ToString();
     }
 
     #endregion
